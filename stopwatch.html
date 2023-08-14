@@ -1,0 +1,98 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>Stopwatch</title> 
+  <link rel="stylesheet" href="stopwatch.css"> 
+</head> 
+<body> 
+  <div class="container"> 
+    <div class="time">00:00:00</div> 
+    <div class="buttons"> 
+      <button id="start">Start</button> 
+      <button id="stop">Stop</button> 
+      <button id="reset">Reset</button> 
+      <button id="flag">Flag</button> 
+    </div> 
+    <ul id="flagList"></ul> 
+  </div> 
+ 
+  <script> 
+    let startTime; 
+    let elapsedTime = 0; 
+    let timerInterval; 
+    let flagList = []; 
+ 
+    function startTimer() { 
+      startTime = Date.now() - elapsedTime; 
+      timerInterval = setInterval(function() { 
+        let now = Date.now(); 
+        elapsedTime = now - startTime; 
+        updateTimer(elapsedTime); 
+      }, 10); 
+      disableButton('start'); 
+
+      
+    } 
+ 
+    function stopTimer() { 
+      clearInterval(timerInterval); 
+      enableButton('start'); 
+    } 
+ 
+    function resetTimer() { 
+      clearInterval(timerInterval); 
+      elapsedTime = 0; 
+      updateTimer(elapsedTime); 
+      enableButton('start'); 
+      clearFlags(); 
+    } 
+ 
+    function updateTimer(elapsedTime) { 
+      let hours = Math.floor(elapsedTime / 3600000); 
+      let minutes = Math.floor((elapsedTime % 3600000) / 60000); 
+      let seconds = Math.floor((elapsedTime % 60000) / 1000); 
+      let milliseconds = Math.floor((elapsedTime % 1000) / 10); 
+ 
+      hours = padTime(hours); 
+      minutes = padTime(minutes); 
+      seconds = padTime(seconds); 
+      milliseconds = padTime(milliseconds); 
+ 
+      let time = hours + ":" + minutes + ":" + seconds + ":" + milliseconds; 
+      document.querySelector(".time").textContent = time; 
+    } 
+ 
+    function padTime(value) { 
+      return value.toString().padStart(2, "0"); 
+    } 
+ 
+    function addFlag() { 
+      const time = document.querySelector(".time").textContent; 
+      flagList.push(time); 
+      const flagListElement = document.getElementById('flagList'); 
+      const flagItem = document.createElement('li'); 
+      flagItem.textContent = time; 
+      flagListElement.appendChild(flagItem); 
+    } 
+ 
+    function clearFlags() { 
+      flagList = []; 
+      const flagListElement = document.getElementById('flagList'); 
+      flagListElement.innerHTML = ''; 
+    } 
+ 
+    function disableButton(buttonId) { 
+      document.getElementById(buttonId).setAttribute('disabled', true); 
+    } 
+ 
+    function enableButton(buttonId) { 
+      document.getElementById(buttonId).removeAttribute('disabled'); 
+    } 
+ 
+    document.getElementById("start").addEventListener("click", startTimer); 
+    document.getElementById("stop").addEventListener("click", stopTimer); 
+    document.getElementById("reset").addEventListener("click", resetTimer); 
+    document.getElementById("flag").addEventListener("click", addFlag); 
+  </script> 
+</body> 
+</html>

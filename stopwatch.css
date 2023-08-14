@@ -1,0 +1,48 @@
+
+  .container {
+    text-align: center;
+    margin-top: 100px;
+  }
+
+  .time {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: blue; /* Change font color to blue */
+  }
+
+  .buttons {
+    margin-top: 20px;
+  }
+
+  /* Apply styles to all buttons */
+  .buttons button {
+    background-color: #4caf50; /* Add background color to buttons */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+  }
+
+  /* Style for the flag button */
+  #flag {
+    background-color: #f44336; /* Change background color for the flag button */
+  }
+  #stop {
+    background-color: blue; /* Change background color for the flag button */
+  }
+  #reset {
+    background-color: darkorange; /* Change background color for the flag button */
+  }
+
+  /* Style for the flag list */
+  #flagList {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+
+  #flagList li {
+    margin-bottom: 5px;
+  }
+
